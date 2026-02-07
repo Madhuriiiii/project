@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Guide</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { text-align: center; background: #f4f4f4; }
+        .header { background: #333; color: white; padding: 10px; font-size: 22px; }
+        .container { margin: 20px auto; max-width: 600px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0px 0px 10px gray; }
+        button { padding: 10px 20px; margin: 10px; border: none; background: #007BFF; color: white; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .hidden { display: none; }
+        iframe { width: 100%; height: 250px; border: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Logo and Website Name -->
+    <div class="header">🔹 AI Career Guide</div>
+
+    <!-- Login and Sign-up -->
+    <div class="container" id="loginPage">
+        <h2>Login / Sign Up</h2>
+        <input type="text" id="username" placeholder="Enter Username"><br><br>
+        <input type="password" id="password" placeholder="Enter Password"><br><br>
+        <button onclick="login()">Login</button>
+        <button onclick="signUp()">Sign Up</button>
+    </div>
+
+    <!-- Career Levels -->
+    <div class="container hidden" id="dashboard">
+        <h2>Choose Your Level</h2>
+        <button onclick="showContent('beginner')">Beginner</button>
+        <button onclick="showContent('intermediate')">Intermediate</button>
+        <button onclick="showContent('pro')">Pro</button>
+    </div>
+
+    <!-- Video Section -->
+    <div class="container hidden" id="content">
+        <h2 id="levelTitle"></h2>
+        <iframe id="videoFrame"></iframe><br>
+        <button onclick="showQuiz()">Take Quiz</button>
+        <button onclick="showAssignment()">View Assignment</button>
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <!-- Quiz Section -->
+    <div class="container hidden" id="quizSection">
+        <h2>Quiz</h2>
+        <p>Q: What does AI stand for?</p>
+        <input type="text" id="answer"><br><br>
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="quizResult"></p>
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <!-- Assignment Section -->
+    <div class="container hidden" id="assignmentSection">
+        <h2>Assignment</h2>
+        <p>📌 Write a short essay on AI applications.</p>
+        <textarea rows="5" cols="40"></textarea><br><br>
+        <button onclick="submitAssignment()">Submit</button>
+        <p id="assignmentResult"></p>
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+        function login() {
+            let user = document.getElementById("username").value;
+            let pass = document.getElementById("password").value;
+            if (user && pass) {
+                document.getElementById("loginPage").classList.add("hidden");
+                document.getElementById("dashboard").classList.remove("hidden");
+            } else {
+                alert("Enter valid credentials!");
+            }
+        }
+
+        function signUp() {
+            alert("Sign-up successful! Now login.");
+        }
+
+        function showContent(level) {
+            document.getElementById("dashboard").classList.add("hidden");
+            document.getElementById("content").classList.remove("hidden");
+
+            let videoURLs = {
+                beginner: "https://www.youtube.com/embed/2ePf9rue1Ao",
+                intermediate: "https://www.youtube.com/embed/aircAruvnKk",
+                pro: "https://www.youtube.com/embed/JMUxmLyrhSk"
+            };
+
+            document.getElementById("videoFrame").src = videoURLs[level];
+            document.getElementById("levelTitle").innerText = level.toUpperCase() + " Level";
+        }
+
+        function showQuiz() {
+            document.getElementById("content").classList.add("hidden");
+            document.getElementById("quizSection").classList.remove("hidden");
+        }
+
+        function checkAnswer() {
+            let answer = document.getElementById("answer").value.toLowerCase();
+            document.getElementById("quizResult").innerText = answer === "artificial intelligence" ? "✅ Correct!" : "❌ Try again!";
+        }
+
+        function showAssignment() {
+            document.getElementById("content").classList.add("hidden");
+            document.getElementById("assignmentSection").classList.remove("hidden");
+        }
+
+        function submitAssignment() {
+            document.getElementById("assignmentResult").innerText = "✅ Assignment Submitted!";
+        }
+
+        function goBack() {
+            document.getElementById("content").classList.add("hidden");
+            document.getElementById("quizSection").classList.add("hidden");
+            document.getElementById("assignmentSection").classList.add("hidden");
+            document.getElementById("dashboard").classList.remove("hidden");
+        }
+    </script>
+
+</body>
+</html>
